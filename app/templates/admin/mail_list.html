@@ -1,0 +1,129 @@
+{% extends "admin/base.html" %}
+
+
+{% import 'ui/tags_pagination.html' as pg %}
+
+
+
+
+{% block content %}
+    <section class="content-header">
+        <h1>zhxfei's web manager</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 邮件列表</a></li>
+            <li class="active">邮件列表</li>
+        </ol>
+    </section>
+    <section class="content" id="showcontent">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">邮件列表（共{{ num_count }}份）</h3>
+                        <div class="box-tools">
+                            {#                            <form method="post">#}
+                            {#                            <div class="input-group input-group-sm" style="width: 180px;">#}
+                            {##}
+                            {#                                <input type="text" name="table_search" class="form-control pull-right"#}
+                            {#                                       placeholder="请输入关键字...">#}
+                            {#                                {{ form.department_id }}#}
+                            {#                                <div class="input-group-btn">#}
+                            {#                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>#}
+                            {#                                    </button>#}
+                            {#                                {{ form.submit }}#}
+                            {#                                {{ form.csrf_token }}#}
+                            {#                                </div>#}
+                            {#                            </div>#}
+                            {##}
+                            {#                            </form>#}
+                            <div class="input-group input-group-sm" style="width: 250px;">
+
+                                <input type="text" name="table_search" class="form-control pull-right"
+                                       placeholder="请输入关键字...">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>
+                                    </button>
+
+                                </div>
+                                <div class="input-group-btn">
+
+                                <a class="btn btn-primary pull-left" href="{{ url_for('admin.email_sync') }}"
+                                       role="button">refresh</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive no-padding">
+
+                        {% block success_message %}
+                            {% for foo in get_flashed_messages(category_filter=["succeed"]) %}
+                                <div class="callout callout-success">
+                                    <h4>{{ foo }}</h4>
+                                </div>
+                            {% endfor %}
+                        {% endblock %}
+
+                        {% block success_failed %}
+                            {% for foo in get_flashed_messages(category_filter=["failed"]) %}
+                                <div class="callout callout-danger">
+                                    <h4>{{ foo }}</h4>
+                                </div>
+                            {% endfor %}
+                        {% endblock %}
+
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr>
+                                <th>发件人</th>
+                                <th>收件人</th>
+                                <th>主题</th>
+                                <th>收到时间</th>
+
+                                {#                                <th>操作事项</th>#}
+                            </tr>
+                            {% for foo in page_data.items %}
+                                <tr>
+                                    <td>{{ foo.mail_sender }}</td>
+                                    <td>{{ foo.mail_receiver }}</td>
+                                    <td>{{ foo.subject }}</td>
+                                    <td>{{ foo.time }}</td>
+
+                                    {#                                    <td>#}
+                                    {#                                        <a class="label label-success"#}
+                                    {#                                           href="{{ url_for('admin.user_edit', id=foo.id) }}">编辑</a>#}
+                                    {#                                        {% if foo.state == 'off' %}#}
+                                    {#                                            <a class="label label-warning"#}
+                                    {#                                               href="{{ url_for('admin.user_on', id=foo.id) }}">解冻</a>#}
+                                    {#                                            &nbsp;{% else %}#}
+                                    {#                                            <a class="label label-warning"#}
+                                    {#                                               href="{{ url_for('admin.user_off', id=foo.id) }}">冻结</a>#}
+                                    {#                                            &nbsp;{% endif %}#}
+                                    {#                                        <a class="label label-danger" href="{{ url_for('admin.user_del', id=foo.id) }}">删除</a>#}
+                                    {#                                    </td>#}
+                                </tr>
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="box-footer clearfix">
+                        {{ pg.pagination(page_data, 'admin.email_list') }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $('#grid-2').addClass('active');
+            $('#grid-2-1').addClass('active');
+        }())
+
+    </script>
+{% endblock %}

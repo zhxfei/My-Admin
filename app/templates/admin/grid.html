@@ -1,0 +1,94 @@
+<ul class="sidebar-menu">
+    <li class="header">管理菜单</li>
+    <li class="treeview" id="grid-1">
+        <a href="#">
+            <i class="fa fa-home" aria-hidden="true"></i>
+            <span>首页</span>
+            <span class="label label-primary pull-right">1</span>
+        </a>
+        <ul class="treeview-menu">
+            <li id="grid-1-1">
+                <a href="{{ url_for('admin.index') }} ">
+                    <i class="fa fa-circle-o"></i> 基本资料
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="treeview" id="grid-2">
+        <a href="#">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <span>邮件列表</span>
+            {% if new_email %}
+            <span class="label label-primary pull-right">新邮件<{{ new_email }}></span>
+            {% endif %}
+        </a>
+        <ul class="treeview-menu">
+            <li id="grid-2-1">
+                <a href="{{ url_for('admin.email_list', page=1) }}">
+                    <i class="fa fa-circle-o"></i> 邮件列表
+                </a>
+            </li>
+        </ul>
+    </li>
+{#    <li class="treeview" id="grid-3">#}
+{#        <a href="#">#}
+{#            <i class="fa fa-users" aria-hidden="true"></i>#}
+{#            <span>部门管理</span>#}
+{#            <span class="label label-primary pull-right">2</span>#}
+{#        </a>#}
+{#        <ul class="treeview-menu">#}
+{#            <li id="grid-3-1">#}
+{#                <a href="{{ url_for('admin.department_add') }}">#}
+{#                    <i class="fa fa-circle-o"></i> 添加部门#}
+{#                </a>#}
+{#            </li>#}
+{#            <li id="grid-3-2">#}
+{#                <a href="{{ url_for('admin.department_list', page=1) }}">#}
+{#                    <i class="fa fa-circle-o"></i> 部门列表#}
+{#                </a>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </li>#}
+
+
+{#    <li class="treeview" id="grid-4">#}
+{#        <a href="#">#}
+{#            <i class="fa fa-file-text" aria-hidden="true"></i>#}
+{#            <span>请假管理</span>#}
+{#            <span class="label label-primary pull-right">2</span>#}
+{#        </a>#}
+{#        <ul class="treeview-menu">#}
+{#            <li id="grid-4-1">#}
+{#                <a href="{{ url_for('admin.holiday_add') }}">#}
+{#                    <i class="fa fa-circle-o"></i> 我要请假#}
+{#                </a>#}
+{#            </li>#}
+{#            <li id="grid-4-2">#}
+{#                <a href="{{ url_for('admin.holiday_list', page=1) }}">#}
+{#                    <i class="fa fa-circle-o"></i> 请假列表#}
+{#                </a>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </li>#}
+{#    <li class="treeview" id="grid-5">#}
+{#        <a href="#">#}
+{#            <i class="fa fa-user-secret" aria-hidden="true"></i>#}
+{#            <span>报销管理</span>#}
+{#            <span class="label label-primary pull-right">2</span>#}
+{#        </a>#}
+{#        <ul class="treeview-menu">#}
+{#            <li id="grid-5-1">#}
+{#                <a href="{{ url_for('admin.expense_add') }}">#}
+{#                    <i class="fa fa-circle-o"></i> 我要报销#}
+{#                </a>#}
+{#            </li>#}
+{#            <li id="grid-5-2">#}
+{#                <a href="{{ url_for('admin.expense_list', page=1) }}">#}
+{#                    <i class="fa fa-circle-o"></i> 报销列表#}
+{#                </a>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </li>#}
+</ul>
+
