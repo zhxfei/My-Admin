@@ -4,7 +4,7 @@ from email.parser import Parser
 from email.header import decode_header
 from email.utils import parseaddr
 from datetime import datetime
-from app.utils.email_config import pop3_server, email, password
+from app.utils.personal_config import pop3_server, email, password
 from app import db
 from app.modles import Email, SyncLog
 email_info_lst = ['From', 'To', 'Subject', 'Date']
@@ -32,7 +32,6 @@ def get_header_value(msg, header):
     if value:
         if header == 'Subject':
             value = decode_str(value)
-            print(value, '\n')
         elif header == 'Date':
             try:
                 date_time = datetime.strptime(msg.get('Date'), "%a, %d %b %Y %H:%M:%S %z (%Z)")

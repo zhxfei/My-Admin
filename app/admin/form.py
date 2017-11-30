@@ -5,6 +5,8 @@ from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAr
 from wtforms.validators import DataRequired, ValidationError
 from app.modles import User
 
+record_type = [(0, 'A'), (1, 'NS'), (2, 'CNAME'), (3, 'MX')]
+
 
 class UserLoginForm(FlaskForm):
     account = StringField(label='账号',
@@ -74,3 +76,39 @@ class PwdForm(FlaskForm):
         admin = User.query.filter_by(name=name).first()
         if not admin.check_pwd(input_old_pwd):
             raise ValidationError('旧密码输入错误！')
+
+
+class RecordAddForm(FlaskForm):
+    name = StringField(label='记录名称',
+                       validators=[DataRequired('记录名!'), ],
+                       description='record name',
+                       render_kw={
+                           'style': "width: 80px; margin: auto; text-align:center",
+                           'required': 'required'
+                       }
+                       )
+    value = StringField(label='value',
+                        validators=[DataRequired('value!'), ],
+                        description='record value',
+                        render_kw={
+                            'style': "width: 80px; margin: auto; text-align:center",
+                            'required': 'required'
+                        }
+                        )
+    type = SelectField(
+        label='record type',
+        description='record type',
+        coerce=int,
+        choices=record_type,
+        render_kw={
+            'style': 'width: 80px; margin: auto;',
+            'class': 'form-control'
+        }
+    )
+    submit = SubmitField(
+        label='添加',
+        render_kw={
+            'class': 'btn btn-primary btn-sm',
+            'id': "btn-sub"
+        }
+    )

@@ -11,7 +11,7 @@ from app import db
 # app.debug = True
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:zhxfei..192@localhost/admin'
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-#
+
 
 from datetime import datetime
 
@@ -61,8 +61,27 @@ class SyncLog(db.Model):
 
     def __repr__(self):
         return '<Ptr: %r>' % self.ptr
-#
-#
+
+
+class RecordInfo(db.Model):
+    __tablename__ = 'record_info'
+    id = db.Column(db.Integer, primary_key=True)
+    sp_id = db.Column(db.String(100))
+    name = db.Column(db.String(100))
+    value = db.Column(db.String(100))
+    type = db.Column(db.String(100))
+    monitor_status = db.Column(db.String(100))
+    updated_time = db.Column(db.DateTime)
+    ttl = db.Column(db.String(100))
+    use_status = db.Column(db.Boolean)
+    domain_name = db.Column(db.String(100))
+
+    def __repr__(self):
+        return '<sp_id: %r name: %r value: %r type: %r monitor_status: %r updated_time: %r ' \
+               'ttl: %r  use_status: %r  domain_name: %r >' % (
+                   self.sp_id, self.name, self.value, self.type, self.monitor_status, self.updated_time, self.ttl,
+                   self.use_status, self.domain_name)
+
 # db.drop_all()
 # db.create_all()
 # user = User(
