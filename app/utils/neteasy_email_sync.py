@@ -2,11 +2,13 @@
 import poplib
 from email.parser import Parser
 from email.header import decode_header
-from email.utils import parseaddr
+from email.utils import parseaddr, parsedate_tz
 from datetime import datetime
 from app.utils.personal_config import pop3_server, email, password
 from app import db
 from app.modles import Email, SyncLog
+
+
 email_info_lst = ['From', 'To', 'Subject', 'Date']
 
 
@@ -33,11 +35,13 @@ def get_header_value(msg, header):
         if header == 'Subject':
             value = decode_str(value)
         elif header == 'Date':
+            print(msg.get('Date'))
             try:
                 date_time = datetime.strptime(msg.get('Date'), "%a, %d %b %Y %H:%M:%S %z (%Z)")
+                value = date_time.strftime('%Y-%m-%d %H:%M')
             except ValueError as e:
-                date_time = datetime.strptime(msg.get('Date'), "%a, %d %b %Y %H:%M:%S %z")
-            value = date_time.strftime('%Y-%m-%d %H:%M')
+                date_time = parsedate_tz(msg.get('Date'))
+                value = "%s-%s-%s %s:%s" % date_time[0:5]
         else:
             hdr, addr = parseaddr(value)
             name = decode_str(hdr)
