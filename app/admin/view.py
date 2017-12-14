@@ -1,11 +1,14 @@
 from app.admin import admin
-from flask import render_template, redirect, session, url_for, request, flash
+from flask import render_template, redirect, session, url_for, request, flash, jsonify
 from werkzeug.security import generate_password_hash
 from app import db
 from app.utils.dnspod_record_sync import record_delete, records_sync, records_add
-from app.admin.form import UserLoginForm, PwdForm, RecordAddForm, record_type
+from app.utils.tx_cvm_info_sync import get_tx_vps_data
+from app.utils.ali_vps_info_sync import get_ali_vps_data
+from app.admin.form import UserLoginForm, PwdForm, RecordAddForm, record_type, CommandCommitForm, host_type
 from app.modles import User, Email, SyncLog, RecordInfo
 import datetime
+from app.ansible_executor.ansible_flask_executor import AnsibleRun
 from functools import wraps
 
 
@@ -144,3 +147,103 @@ def record_del(record_id):
     flash(info, 'succeed')
     return redirect(url_for('admin.record_list', page=1))
 
+
+@admin.route('/machine/list/')
+@login_req
+def machine_lst():
+    return render_template('admin/overview.html')
+
+
+@admin.route('/machine/vps/list/')
+@login_req
+def vps_machine_lst():
+    return render_template('admin/vps_info.html')
+
+
+@admin.route('/machine/vps/info/')
+@login_req
+def vps_info_get():
+    tx_data = get_tx_vps_data()
+    ali_data = get_ali_vps_data()
+    page_data = []
+
+    page_data += ali_data
+    page_data += tx_data
+
+    return jsonify({
+        'data': page_data
+    })
+
+
+@admin.route('/command/exec/', methods=['GET', 'POST'])
+@login_req
+def command_exec():
+    form = CommandCommitForm()
+    form.result.render_kw['rows'] = 10
+    if form.validate_on_submit():
+        host = form.data['host']
+        host_name_lst = [h for k, h in host_type if k in host]
+        command = form.data['content']
+        runner = AnsibleRun(host_name_lst)
+        runner.module_run([
+        {
+            'module': 'shell',
+            'args': command
+        }
+        ])
+        res_body = """"""
+        res_stdout = runner.get_result('result_stdout_lines')
+        if res_stdout:
+            res_body += '正确输出：\n'
+            for host_job, std in res_stdout.items():
+                res_body += host_job + '\n' * 2 + '\n'.join([' '*4 + v for v in std]) + '\n'
+                res_body += '---' * 30 + '\n'
+        res_stderr = runner.get_result('result_stderr_lines')
+        if res_stderr:
+            res_body += '错误输出：\n'
+            for host_job, std in res_stderr.items():
+                res_body += host_job + '\n' * 2 + '\n'.join([' '*4 + v for v in std]) + '\n'
+                res_body += '---' * 30 + '\n'
+        res_unreachable = runner.get_result('result_unreachable')
+        if res_unreachable:
+            res_body += '不可达输出：\n'
+            for host_job, std in res_unreachable.items():
+                res_body += host_job + '\n' + '    ' +std['msg'] + '\n'
+                res_body += '---' * 30 + '\n'
+        form.result.data = res_body
+        form.result.render_kw['rows'] = 40
+    return render_template('admin/command_exec.html', form=form)
+
+
+@admin.route('/cron/list')
+@login_req
+def cron_list():
+    return render_template('admin/cron_list.html')
+
+
+'''
+@admin.route('/command/run', methods=['POST'])
+def command_run():
+    req = request
+    host_name_lst = request.form.get('command_executor')
+    command = request.form.get('command_content')
+    print(host_name_lst, command)
+    if host_name_lst and command:
+        # host_name_lst = [h for k, h in host_type if k in host]
+        runner = AnsibleRun(host_name_lst)
+        runner.module_run([
+            {
+                'module': 'shell',
+                'args': command
+            }
+        ])
+        res = runner.get_result('result_stdout_lines')
+        return jsonify({'status': 'ok', 'message': res}), 200
+    return jsonify({'status': 'failed', 'message': 'error parameters'})
+'''
+
+
+@admin.route('/test')
+@login_req
+def test():
+    return render_template('admin/test.html')

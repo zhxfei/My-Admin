@@ -1,0 +1,49 @@
+Metadata-Version: 2.0
+Name: ansible
+Version: 2.4.2.0
+Summary: Radically simple IT automation
+Home-page: https://ansible.com/
+Author: Ansible, Inc.
+Author-email: info@ansible.com
+License: GPLv3+
+Description-Content-Type: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Natural Language :: English
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Topic :: System :: Installation/Setup
+Classifier: Topic :: System :: Systems Administration
+Classifier: Topic :: Utilities
+Requires-Dist: jinja2
+Requires-Dist: PyYAML
+Requires-Dist: paramiko
+Requires-Dist: cryptography
+Requires-Dist: setuptools
+Provides-Extra: azure
+Requires-Dist: packaging; extra == 'azure'
+Requires-Dist: requests[security]; extra == 'azure'
+Requires-Dist: azure-mgmt-compute (<3,>=2.0.0); extra == 'azure'
+Requires-Dist: azure-mgmt-network (<2,>=1.3.0); extra == 'azure'
+Requires-Dist: azure-mgmt-storage (<2,>=1.2.0); extra == 'azure'
+Requires-Dist: azure-mgmt-resource (<2,>=1.1.0); extra == 'azure'
+Requires-Dist: azure-storage (<0.36,>=0.35.1); extra == 'azure'
+Requires-Dist: azure-cli-core (<3,>=2.0.12); extra == 'azure'
+Requires-Dist: msrest (!=0.4.15); extra == 'azure'
+Requires-Dist: msrestazure (<0.5,>=0.4.11); extra == 'azure'
+Requires-Dist: azure-mgmt-dns (<2,>=1.0.1); extra == 'azure'
+Requires-Dist: azure-mgmt-keyvault (<0.41,>=0.40.0); extra == 'azure'
+Requires-Dist: azure-mgmt-batch (<5,>=4.1.0); extra == 'azure'
+Requires-Dist: azure-mgmt-sql (<0.8,>=0.7.1); extra == 'azure'
+Requires-Dist: azure-mgmt-web (<0.33,>=0.32.0); extra == 'azure'
+Requires-Dist: azure-mgmt-containerservice (<2.0.0,>=1.0.0); extra == 'azure'
+
+UNKNOWN
+
+

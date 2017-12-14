@@ -84,15 +84,15 @@ class AnsibleRun(object):
     def __init__(self, hosts, result_callback=None):
         self.loader = DataLoader()
         self.options = AnsibleRun.Options(connection='ssh',
-                                             module_path='../../env/lib/python3.5/site-packages/ansible/modules/',
-                                             forks=100,
-                                             sudo='yes',
-                                             become=None,
-                                             become_method=None,
-                                             become_user='root',
-                                             check=False,
-                                             diff=False,
-                                             timeout=3)
+                                          module_path='../../env/lib/python3.5/site-packages/ansible/modules/',
+                                          forks=100,
+                                          sudo='yes',
+                                          become=None,
+                                          become_method=None,
+                                          become_user='root',
+                                          check=False,
+                                          diff=False,
+                                          timeout=3)
         self.passwords = dict(vault_pass='secret')
         self.hosts = hosts
         self.inventory = InventoryManager(loader=self.loader, sources=['/etc/ansible/hosts'])
@@ -153,7 +153,7 @@ class AnsibleRun(object):
                             'result_failed',
                             'result_unreachable']
         assert result_type in params_allow_lst, 'result_type must in {params_allow_lst}'.format(
-                                                                      params_allow_lst=params_allow_lst)
+                                                                        params_allow_lst=params_allow_lst)
         if result_type == 'result_all':
             return self.result_callback._result_host_all
         if result_type == 'result_ok':
@@ -179,7 +179,7 @@ def test():
         # },
         {
             'module': 'shell',
-            'args': 'ifconfig'
+            'args': 'ipconfig'
         }
     ])
     out = ansible_client.get_result('result_all')
@@ -194,5 +194,3 @@ def test():
     print(out)
     out = ansible_client.get_result('result_unreachable')
     print(out)
-
-test()

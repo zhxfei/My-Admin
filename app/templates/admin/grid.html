@@ -2,14 +2,13 @@
     <li class="header">管理菜单</li>
     <li class="treeview" id="grid-1">
         <a href="#">
-            <i class="fa fa-home" aria-hidden="true"></i>
-            <span>首页</span>
-            <span class="label label-primary pull-right">1</span>
+            <i class="fa fa-dashboard" aria-hidden="true"></i>
+            <span>服务监控</span>
         </a>
         <ul class="treeview-menu">
             <li id="grid-1-1">
                 <a href="{{ url_for('admin.index') }} ">
-                    <i class="fa fa-circle-o"></i> 基本资料
+                    <i class="fa fa-circle-o"></i> Tengine
                 </a>
             </li>
         </ul>
@@ -17,10 +16,10 @@
 
     <li class="treeview" id="grid-2">
         <a href="#">
-            <i class="fa fa-tags" aria-hidden="true"></i>
+            <i class="fa  fa-envelope-o" aria-hidden="true"></i>
             <span>邮件管理</span>
             {% if new_email %}
-            <span class="label label-primary pull-right">新邮件<{{ new_email }}></span>
+                <span class="label label-primary pull-right">新邮件<{{ new_email }}></span>
             {% endif %}
         </a>
         <ul class="treeview-menu">
@@ -37,7 +36,7 @@
             <span>域名管理</span>
         </a>
         <ul class="treeview-menu">
-            <li id="grid-3-2">
+            <li id="grid-3-1">
                 <a href="{{ url_for('admin.record_list', page=1) }}">
                     <i class="fa fa-circle-o"></i> 域名列表
                 </a>
@@ -45,44 +44,71 @@
         </ul>
     </li>
 
+    <li class="treeview" id="grid-4">
+        <a href="#">
+            <i class="fa fa-sitemap" aria-hidden="true"></i>
+            <span>资产管理</span>
+        </a>
+        <ul class="treeview-menu">
+            <li id="grid-4-1">
+                <a href="{{ url_for('admin.machine_lst') }}">
+                    <i class="fa fa-circle-o"></i> Ansible-CMDB
+                </a>
+            </li>
+        </ul>
+        <ul class="treeview-menu">
+            <li id="grid-4-2">
+                <a href="{{ url_for('admin.vps_machine_lst') }}">
+                    <i class="fa fa-circle-o"></i> 公有云管理
+                </a>
+            </li>
+        </ul>
 
-{#    <li class="treeview" id="grid-4">#}
-{#        <a href="#">#}
-{#            <i class="fa fa-file-text" aria-hidden="true"></i>#}
-{#            <span>请假管理</span>#}
-{#            <span class="label label-primary pull-right">2</span>#}
-{#        </a>#}
-{#        <ul class="treeview-menu">#}
-{#            <li id="grid-4-1">#}
-{#                <a href="{{ url_for('admin.holiday_add') }}">#}
-{#                    <i class="fa fa-circle-o"></i> 我要请假#}
-{#                </a>#}
-{#            </li>#}
-{#            <li id="grid-4-2">#}
-{#                <a href="{{ url_for('admin.holiday_list', page=1) }}">#}
-{#                    <i class="fa fa-circle-o"></i> 请假列表#}
-{#                </a>#}
-{#            </li>#}
-{#        </ul>#}
-{#    </li>#}
-{#    <li class="treeview" id="grid-5">#}
-{#        <a href="#">#}
-{#            <i class="fa fa-user-secret" aria-hidden="true"></i>#}
-{#            <span>报销管理</span>#}
-{#            <span class="label label-primary pull-right">2</span>#}
-{#        </a>#}
-{#        <ul class="treeview-menu">#}
-{#            <li id="grid-5-1">#}
-{#                <a href="{{ url_for('admin.expense_add') }}">#}
-{#                    <i class="fa fa-circle-o"></i> 我要报销#}
-{#                </a>#}
-{#            </li>#}
-{#            <li id="grid-5-2">#}
-{#                <a href="{{ url_for('admin.expense_list', page=1) }}">#}
-{#                    <i class="fa fa-circle-o"></i> 报销列表#}
-{#                </a>#}
-{#            </li>#}
-{#        </ul>#}
-{#    </li>#}
+    </li>
+    <li class="treeview" id="grid-5">
+        <a href="#">
+            <i class="fa fa-server" aria-hidden="true"></i>
+            <span>服务器管理</span>
+        </a>
+        <ul class="treeview-menu">
+            <li id="grid-5-1">
+                <a href="{{ url_for('admin.command_exec') }}">
+                    <i class="fa fa-circle-o"></i> 命令执行
+                </a>
+            </li>
+            <li id="grid-5-2">
+                <a href="{{ url_for('admin.cron_list') }}">
+                    <i class="fa fa-circle-o"></i> 定时任务
+                </a>
+            </li>
+            <li id="grid-5-3">
+                <a href="{{ url_for('admin.machine_lst') }}">
+                    <i class="fa fa-circle-o"></i> 内核参数
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="treeview" id="grid-6">
+        <a href="#">
+            <i class="fa fa-clipboard" aria-hidden="true"></i>
+            <span>日志管理</span>
+        </a>
+        <ul class="treeview-menu">
+            <li id="grid-6-1">
+                <a href="{{ url_for('admin.machine_lst') }}">
+                    <i class="fa fa-circle-o"></i> Tengine
+                </a>
+            </li>
+        </ul>
+        <ul class="treeview-menu">
+            <li id="grid-6-1">
+                <a href="{{ url_for('admin.machine_lst') }}">
+                    <i class="fa fa-circle-o"></i> MySQL
+                </a>
+            </li>
+        </ul>
+    </li>
+
 </ul>
 

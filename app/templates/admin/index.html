@@ -8,7 +8,7 @@
             <li class="active">基本资料</li>
         </ol>
     </section>
-    <section class="content" id="showcontent">
+{#    <section class="content" id="showcontent">#}
         {#        <div class="row" style="width: auto">#}
         {#            <div class="col-md-6">#}
         {#                <div class="box box-primary">#}
@@ -19,9 +19,13 @@
         {#                </div>#}
         {#            </div>#}
         {#        </div>#}
-       <p> 尊敬的管理员  欢迎登录 </p>
-    </section>
 
+{#    </section>#}
+<section class="content" id="showcontent">
+
+<iframe src="http://120.27.4.68:3000/dashboard/snapshot/SN1QZRWFm4SEMQXUxs4tM3y0W8q9plxW"
+        width="100%" height="100%" frameborder="0"></iframe>
+</section>
 {% endblock %}
 
 {% block js %}
@@ -30,6 +34,8 @@
         $(document).ready(function () {
             $('#grid-1').addClass('active');
             $('#grid-1-1').addClass('active');
+            var hh=window.screen.availHeight -100;
+            $('.content').css('height',hh+'px')
         }())
 
     </script>

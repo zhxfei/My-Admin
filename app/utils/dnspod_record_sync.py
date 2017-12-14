@@ -52,7 +52,7 @@ def records_sync():
 
 def records_add(name, value, record_type, domain_name='zhxfei.com'):
     data = {
-        'login_token': '40671,cae1634c5325c9351932ebcd0a159d37',
+        'login_token': dns_login_token,
         'format': 'json',
         'sub_domain': name,
         'record_type': record_type,
@@ -80,7 +80,7 @@ def records_add(name, value, record_type, domain_name='zhxfei.com'):
 
 def record_delete(record_id):
     data = {
-        'login_token': '40671,cae1634c5325c9351932ebcd0a159d37',
+        'login_token': dns_login_token,
         'format': 'json',
         'record_id': record_id,
         'domain_id': '28921413'
@@ -88,3 +88,6 @@ def record_delete(record_id):
     res = requests.post(records_url.format('Remove'), data=data)
     return res.json()['status']['message']
 
+
+def record_modify(record_id):
+    pass

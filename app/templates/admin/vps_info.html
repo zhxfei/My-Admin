@@ -1,0 +1,78 @@
+{% extends "admin/base.html" %}
+
+
+{% import 'ui/tags_pagination.html' as pg %}
+
+{% block css %}
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.0/css/buttons.dataTables.min.css">
+{% endblock %}
+
+
+{% block content %}
+    <section class="content-header">
+        <h1>zhxfei's web manager</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 资产管理</a></li>
+            <li class="active">公有云管理</li>
+        </ol>
+    </section>
+    <section class="content" id="showcontent">
+        <div class="panel-body panel-body-1 active">
+
+            <table id="example_test" style="table-layout: fixed" class="table table-striped table-bordered table-hover"
+                   cellspacing="0" width="100%">
+                <thead>
+                <tr class="success">
+                    <th>服务商</th>
+                    <th>zone</th>
+                    <th width="13%">Wan IP</th>
+                    <th width="13%">Lan IP</th>
+                    <th width="8%">带宽</th>
+                    <th width="8%">cpu</th>
+                    <th width="8%">mem</th>
+                    <th width="13%">os</th>
+                    <th>status</th>
+                    <th>创建时间</th>
+                    <th>过期时间</th>
+                </tr>
+                </thead>
+            </table>
+
+
+        </div>
+    </section>
+{% endblock %}
+
+{% block js %}
+    <script src="http://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.0/js/dataTables.buttons.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#grid-4').addClass('active');
+            $('#grid-4-2').addClass('active');
+
+
+            var table = $('#example_test').DataTable({
+                "ajax": "{{ url_for('admin.vps_info_get') }}",
+                "columns": [
+                    {"data": "sp_name"},
+                    {"data": "zoneName"},
+                    {"data": "wanIpSet"},
+                    {"data": "lanIp"},
+                    {"data": "bandwidth"},
+                    {"data": "cpu"},
+                    {"data": "mem"},
+                    {"data": "os"},
+                    {"data": "status"},
+                    {"data": "createTime"},
+                    {"data": "deadlineTime"},
+                ],
+                "bAutoWidth": false
+            });
+
+        });
+
+    </script>
+{% endblock %}

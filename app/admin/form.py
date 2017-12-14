@@ -1,12 +1,12 @@
 # coding: utf-8
 from flask_wtf import FlaskForm
 from flask import session
-from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, SelectField, SelectMultipleField, TextAreaField
 from wtforms.validators import DataRequired, ValidationError
 from app.modles import User
 
 record_type = [(0, 'A'), (1, 'NS'), (2, 'CNAME'), (3, 'MX')]
-
+host_type = [(0, 'hk.zhxfei.com'), (1, 'sh.zhxfei.com'), (2, 'hkweb.zhxfei.com'), (3, 'qd.zhxfei.com')]
 
 class UserLoginForm(FlaskForm):
     account = StringField(label='账号',
@@ -112,3 +112,43 @@ class RecordAddForm(FlaskForm):
             'id': "btn-sub"
         }
     )
+
+
+class CommandCommitForm(FlaskForm):
+    host = SelectMultipleField(
+        label='主机',
+        description='command will be execute in hosts',
+        coerce=int,
+        choices=host_type,
+        render_kw={
+            'class': 'form-control select2',
+            'data - placeholder': "Select Host",
+            'style': 'width: 20%'
+        }
+    )
+
+    content = StringField(label='command content',
+                          validators=[DataRequired('请输入执行命令!'), ],
+                          description='record name',
+                          render_kw={
+                              'class': "form-control",
+                              'style': 'width: 50%'
+                          }
+                          )
+    submit = SubmitField(
+        label='Send command',
+        render_kw={
+            'class': ' btn btn-default',
+            'id': "btn-sub",
+            'type': "submit"
+        }
+    )
+    result = TextAreaField(
+        label='执行结果',
+        render_kw={
+            'class': "form-control",
+            'placeholder': "command execute result",
+            'readonly': "True",
+        }
+    )
+
