@@ -8,6 +8,7 @@ from app.modles import User
 record_type = [(0, 'A'), (1, 'NS'), (2, 'CNAME'), (3, 'MX')]
 host_type = [(0, 'hk.zhxfei.com'), (1, 'sh.zhxfei.com'), (2, 'hkweb.zhxfei.com'), (3, 'qd.zhxfei.com')]
 
+
 class UserLoginForm(FlaskForm):
     account = StringField(label='账号',
                           validators=[DataRequired('请输入账号!'), ],
@@ -121,9 +122,10 @@ class CommandCommitForm(FlaskForm):
         coerce=int,
         choices=host_type,
         render_kw={
-            'class': 'form-control select2',
+            'class': 'form-control',
+            'id': 'select_host',
             'data - placeholder': "Select Host",
-            'style': 'width: 20%'
+            'style': 'width: 30%'
         }
     )
 

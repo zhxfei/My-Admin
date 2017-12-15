@@ -20,6 +20,14 @@ def admin_extra():
         new_email = email.ptr - email_1.ptr if email.ptr - email_1.ptr > 0 else None
     else:
         new_email = None
+    # runner = AnsibleRun('all')
+    # runner.module_run([
+    #     {
+    #         'module': 'shell',
+    #         'args': 'crontab -l'
+    #     }
+    #     ])
+
     return {
         'online_time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'new_email': new_email
@@ -42,7 +50,6 @@ def pwd():
     form = PwdForm()
     if form.validate_on_submit():
         new_pass = form.data['new_pwd']
-        print(new_pass)
         admin = User.query.filter_by(name=session['admin']).first()
         admin.pwd = generate_password_hash(new_pass)
         db.session.commit()
@@ -219,6 +226,13 @@ def command_exec():
 @login_req
 def cron_list():
     return render_template('admin/cron_list.html')
+
+
+@admin.route('/cron/add')
+@login_req
+def cron_add():
+    pass
+
 
 
 '''

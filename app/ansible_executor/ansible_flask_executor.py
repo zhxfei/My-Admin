@@ -171,15 +171,15 @@ class AnsibleRun(object):
 
 
 def test():
-    ansible_client = AnsibleRun('all')
+    ansible_client = AnsibleRun('localhost')
     ansible_client.module_run([
         # {
         #     'module': 'echo',
         #     'args': 'args=sssss'
         # },
         {
-            'module': 'shell',
-            'args': 'ipconfig'
+            'module': 'cron',
+            'args': "name='just a test echo' job='echo hello world' minute='*/1'"
         }
     ])
     out = ansible_client.get_result('result_all')
@@ -194,3 +194,7 @@ def test():
     print(out)
     out = ansible_client.get_result('result_unreachable')
     print(out)
+
+
+
+test()
